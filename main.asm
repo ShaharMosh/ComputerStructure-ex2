@@ -1,6 +1,6 @@
 // 208001677 Shahar Moshonov.
 	.data
-id:	.quad	208001677
+id:	.long	208001677
 
 	#This is a simple "Hello World!" program
 	.section	.rodata	#read only data section
@@ -13,18 +13,20 @@ str:	.string	"208001677\n"
 main:
     movq %rsp, %rbp #for correct debugging	# the main function:
 	pushq	%rbp		#save the old frame pointer
-	movq	%rsp,	%rbp	#create the new frame pointer
+	movq	%rsp,%rbp	#create the new frame pointer
 
 	movq	$str,%rdi	#the string is the only paramter passed to the printf function (remember- first parameter goes in %rdi).
 	movq	$0,%rax
 	call	printf		#calling to printf AFTER we passed its parameters.
 
 	#return from printf:
-	movq	$0, %rax	#return value is zero (just like in c - we tell the OS that this program finished seccessfully)
-	movq	%rbp, %rsp	#restore the old stack pointer - release all used memory.
+	movq	$0,%rax	#return value is zero (just like in c - we tell the OS that this program finished seccessfully)
+	movq	%rbp,%rsp	#restore the old stack pointer - release all used memory.
 	popq	%rbp		#restore old frame pointer (the caller function frame)
 
-	movq	id, %rsi	#assign a to %rsi (1000)   
+	movq	id, %rsi	#assign a to %rsi (1000)
+	movq	$0, %rdx	#making sure %rdx will have zero in all its 
+       movb	(%rsi), (%ebx)	#reading one word that starts at this address (reading 0x10).
      
 
        
@@ -32,6 +34,5 @@ main:
 	#note that the sum is already in %rcx (4th argument), b is already in %rdx (3rd argument)
 	movq	$format2,%rdi	#the string is the first paramter passed to the printf function.
 	movq	$0,%rax
-       pushq	$0x41		#pushing a random value to the stack (causing the stack to be 16 byte aligned)
 	call	printf		#calling to printf AFTER its arguments are passed (not that many arguments, therefore using registers only).
        ret
