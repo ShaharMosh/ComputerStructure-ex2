@@ -1,4 +1,4 @@
-// 208001677 Shahar Moshonov
+#208001677 Shahar Moshonov
 
 #This is the ex2 program.
 	.data
@@ -79,14 +79,11 @@ main:
        incq    %rcx         #i++.
        and     %rax, %rbx
        je .l6
-       incq    %rdi
-       salq    $1, %rbx
-       cmp     $7, %rcx
-       jle .l5 
+       incq    %rdi 
 
 .l6:
        movq    $1, %rbx      #save 1 in %rbx.
-       salq    %rcx, %rbx
+       sarq    $1, %rax
        cmp     $7, %rcx
        jle .l5      
 
